@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  background: grey;
+  /*padding-bottom: 56px;*/
+  color: black; }
+
+.mainBox {
+  background-color: white;
+  width: 400px;
+  height: auto;
+  margin: auto;
+  /*margin-top: 50px;
+  margin-left: 450px;*/
+  border: 1px solid black;
+  display: -webkit-flex;
+  display: flex;
+  /*align-items: stretch;*/
+  flex-direction: column;
+  justify-content: space-between;
+  /*padding-right: 100px;*/
+}
+
+.days{
+  /*background-color: #e8eaed;*/
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid grey;
+
+}
+
+.weekdays ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+  background-color: green;
+  position: relative;
+}
+
+.weekdays ul li { 
+  display: inline; 
+  position: relative;
+}
+
+.weekdays-selected::before {
+  content: "\2022";
+  color: inherit;
+  position: absolute;
+  top: 1px;
+  right: 40px;
+}
+
+.currentDay {
+  margin: auto;
+}
+
+
+.check{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.greyText {
+  color: grey;
+  display: block;
+}
+
+.status{
+  margin-bottom: 50px;
+}
+
+.actionCheck{
+  margin-bottom: 120px;
+  margin-top: 120px;
+}
+
+.footer{
+  width: 400px;
+  height: 50px;
+  border-top: solid 1px grey;
+}
+
+
+
+
