@@ -67,6 +67,7 @@ export default connect(
 
   componentWillReceiveProps(nextProps){
     console.log('next props in componentWillReceiveProps: ', nextProps);
+    this.computeSelectedDayString ();
     if (this.props !== nextProps) {
       this.setState({
         days: nextProps.days,

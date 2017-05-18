@@ -33,14 +33,14 @@ export const updateDay = (name) => {
 
 }
 
-export const updateLoggedHabit = (dayName, data) => {
-  return dispatch => {
-    return axios.put(`/api/users/${dayName}`, data)
-      .then(res => {
-        console.log("updating logged info about the habit: ", res.data);
-      });
-  };
-}
+// export const updateLoggedHabit = (dayName, data) => {
+//   return dispatch => {
+//     return axios.put(`/api/users/${dayName}`, data)
+//       .then(res => {
+//         console.log("updating logged info about the habit: ", res.data);
+//       });
+//   };
+// }
 
 export const computeInitialSelectedDay = () => {
   var todayObject = new Date();
@@ -57,6 +57,17 @@ export const computeInitialSelectedDay = () => {
     dispatch(updateSelectedDay(day));
   };
 }
+
+// export const computeSelectedDayString () {
+//     var splitDate = this.props.selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
+//     console.log('splitDate is ', splitDate);
+//     var resultingString = '';
+//     resultingString = idToDay[this.props.selectedDay.dayName];
+//     resultingString += ', ';
+//     resultingString += idToMonth[splitDate[0]-1];
+//     resultingString += splitDate[1];
+    
+//   }
 
 
 export const getUserDays = () => {

@@ -10,7 +10,7 @@ export default function (props) {
   const styles = {
   chip1: {
     margin: 4,
-    backgroundColor: 'limegreen',
+    backgroundColor: '#0dd261',
   },
   chip2: {
     margin: 4,

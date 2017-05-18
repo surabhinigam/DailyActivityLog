@@ -1939,7 +1939,7 @@ exports.default = pure;
 /***/ (function(module, exports, __webpack_require__) {
 
 var store      = __webpack_require__(98)('wks')
-  , uid        = __webpack_require__(70)
+  , uid        = __webpack_require__(71)
   , Symbol     = __webpack_require__(33).Symbol
   , USE_SYMBOL = typeof Symbol == 'function';
 
@@ -1974,7 +1974,7 @@ var CallbackQueue = __webpack_require__(189);
 var PooledClass = __webpack_require__(45);
 var ReactFeatureFlags = __webpack_require__(194);
 var ReactReconciler = __webpack_require__(54);
-var Transaction = __webpack_require__(79);
+var Transaction = __webpack_require__(80);
 
 var invariant = __webpack_require__(1);
 
@@ -3436,7 +3436,7 @@ var _assign = __webpack_require__(6);
 var ReactCurrentOwner = __webpack_require__(28);
 
 var warning = __webpack_require__(3);
-var canDefineProperty = __webpack_require__(85);
+var canDefineProperty = __webpack_require__(86);
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 var REACT_ELEMENT_TYPE = __webpack_require__(225);
@@ -4036,7 +4036,7 @@ module.exports = exports["default"];
 
 
 var DOMNamespaces = __webpack_require__(115);
-var setInnerHTML = __webpack_require__(81);
+var setInnerHTML = __webpack_require__(82);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(122);
 var setTextContent = __webpack_require__(206);
@@ -4160,8 +4160,8 @@ module.exports = DOMLazyTree;
 
 var _prodInvariant = __webpack_require__(5);
 
-var EventPluginRegistry = __webpack_require__(75);
-var EventPluginUtils = __webpack_require__(76);
+var EventPluginRegistry = __webpack_require__(76);
+var EventPluginUtils = __webpack_require__(77);
 var ReactErrorUtils = __webpack_require__(119);
 
 var accumulateInto = __webpack_require__(200);
@@ -4443,7 +4443,7 @@ module.exports = EventPluginHub;
 
 
 var EventPluginHub = __webpack_require__(52);
-var EventPluginUtils = __webpack_require__(76);
+var EventPluginUtils = __webpack_require__(77);
 
 var accumulateInto = __webpack_require__(200);
 var forEachAccumulated = __webpack_require__(201);
@@ -5108,7 +5108,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _PathUtils = __webpack_require__(39);
 
-var _Actions = __webpack_require__(83);
+var _Actions = __webpack_require__(84);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5219,7 +5219,7 @@ var createFactory = ReactElement.createFactory;
 var cloneElement = ReactElement.cloneElement;
 
 if (process.env.NODE_ENV !== 'production') {
-  var canDefineProperty = __webpack_require__(85);
+  var canDefineProperty = __webpack_require__(86);
   var ReactElementValidator = __webpack_require__(226);
   var didWarnPropTypesDeprecated = false;
   createElement = ReactElementValidator.createElement;
@@ -5751,12 +5751,110 @@ module.exports = g;
 
 /***/ }),
 /* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getUserDays = exports.computeInitialSelectedDay = exports.updateDay = exports.updateSelectedDay = exports.receiveDays = undefined;
+
+var _constants = __webpack_require__(149);
+
+var _axios = __webpack_require__(143);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _utils = __webpack_require__(150);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//======Action Creators========//
+
+//======Files, Libraries========//
+var receiveDays = exports.receiveDays = function receiveDays(days) {
+  return {
+    type: _constants.RECEIVE_DAYS,
+    days: days
+  };
+}; //======Actions=======//
+var updateSelectedDay = exports.updateSelectedDay = function updateSelectedDay(day) {
+  return {
+    type: _constants.UPDATE_DAY,
+    day: day
+  };
+};
+
+//========Dispatchers===========//
+
+// export const getDaysByUserId = userId => {
+//   return dispatch => {
+//     axios.get(`/api/users/${userId}/days`)
+//       .then(response => {
+//         dispatch(receiveDays(response.data));
+//       });
+//   };
+// };
+
+var updateDay = exports.updateDay = function updateDay(name) {};
+
+// export const updateLoggedHabit = (dayName, data) => {
+//   return dispatch => {
+//     return axios.put(`/api/users/${dayName}`, data)
+//       .then(res => {
+//         console.log("updating logged info about the habit: ", res.data);
+//       });
+//   };
+// }
+
+var computeInitialSelectedDay = exports.computeInitialSelectedDay = function computeInitialSelectedDay() {
+  var todayObject = new Date();
+  var todayString = todayObject.toDateString();
+  var dayName = todayString.slice(0, 2);
+  var dateString = todayObject.getMonth() + 1 + '/' + todayObject.getDate().toString() + '/' + todayObject.getYear().toString(); //mm/dd/yyyy
+  var logged = false;
+  var day = {
+    dayName: dayName,
+    dateString: dateString,
+    logged: logged
+  };
+  return function (dispatch) {
+    dispatch(updateSelectedDay(day));
+  };
+};
+
+// export const computeSelectedDayString () {
+//     var splitDate = this.props.selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
+//     console.log('splitDate is ', splitDate);
+//     var resultingString = '';
+//     resultingString = idToDay[this.props.selectedDay.dayName];
+//     resultingString += ', ';
+//     resultingString += idToMonth[splitDate[0]-1];
+//     resultingString += splitDate[1];
+
+//   }
+
+
+var getUserDays = exports.getUserDays = function getUserDays() {
+  console.log('inside the action creator: ');
+  return function (dispatch) {
+    _axios2.default.get('/api/users/days').then(function (response) {
+      console.log('response is:', response.data);
+      dispatch(receiveDays(response.data));
+    });
+  };
+};
+
+/***/ }),
+/* 70 */
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 var id = 0
@@ -5766,7 +5864,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5839,7 +5937,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5859,7 +5957,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _FontIcon2.default;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6272,7 +6370,7 @@ exports.default = EnhancedButton;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6521,7 +6619,7 @@ function lighten(color, coefficient) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6782,7 +6880,7 @@ module.exports = EventPluginRegistry;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7014,7 +7112,7 @@ module.exports = EventPluginUtils;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7032,7 +7130,7 @@ module.exports = EventPluginUtils;
 
 var _assign = __webpack_require__(6);
 
-var EventPluginRegistry = __webpack_require__(75);
+var EventPluginRegistry = __webpack_require__(76);
 var ReactEventEmitterMixin = __webpack_require__(459);
 var ViewportMetrics = __webpack_require__(121);
 
@@ -7347,7 +7445,7 @@ var ReactBrowserEventEmitter = _assign({}, ReactEventEmitterMixin, {
 module.exports = ReactBrowserEventEmitter;
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7424,7 +7522,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 module.exports = SyntheticMouseEvent;
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7655,7 +7753,7 @@ module.exports = TransactionImpl;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7783,7 +7881,7 @@ function escapeTextContentForBrowser(text) {
 module.exports = escapeTextContentForBrowser;
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7886,7 +7984,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = setInnerHTML;
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7904,7 +8002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7932,7 +8030,7 @@ var REPLACE = exports.REPLACE = 'REPLACE';
 var POP = exports.POP = 'POP';
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7987,7 +8085,7 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 };
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8019,7 +8117,7 @@ module.exports = canDefineProperty;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8117,91 +8215,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getUserDays = exports.computeInitialSelectedDay = exports.updateLoggedHabit = exports.updateDay = exports.updateSelectedDay = exports.receiveDays = undefined;
-
-var _constants = __webpack_require__(149);
-
-var _axios = __webpack_require__(143);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _utils = __webpack_require__(150);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//======Action Creators========//
-
-//======Files, Libraries========//
-var receiveDays = exports.receiveDays = function receiveDays(days) {
-  return {
-    type: _constants.RECEIVE_DAYS,
-    days: days
-  };
-}; //======Actions=======//
-var updateSelectedDay = exports.updateSelectedDay = function updateSelectedDay(day) {
-  return {
-    type: _constants.UPDATE_DAY,
-    day: day
-  };
-};
-
-//========Dispatchers===========//
-
-// export const getDaysByUserId = userId => {
-//   return dispatch => {
-//     axios.get(`/api/users/${userId}/days`)
-//       .then(response => {
-//         dispatch(receiveDays(response.data));
-//       });
-//   };
-// };
-
-var updateDay = exports.updateDay = function updateDay(name) {};
-
-var updateLoggedHabit = exports.updateLoggedHabit = function updateLoggedHabit(dayName, data) {
-  return function (dispatch) {
-    return _axios2.default.put('/api/users/' + dayName, data).then(function (res) {
-      console.log("updating logged info about the habit: ", res.data);
-    });
-  };
-};
-
-var computeInitialSelectedDay = exports.computeInitialSelectedDay = function computeInitialSelectedDay() {
-  var todayObject = new Date();
-  var todayString = todayObject.toDateString();
-  var dayName = todayString.slice(0, 2);
-  var dateString = todayObject.getMonth() + 1 + '/' + todayObject.getDate().toString() + '/' + todayObject.getYear().toString(); //mm/dd/yyyy
-  var logged = false;
-  var day = {
-    dayName: dayName,
-    dateString: dateString,
-    logged: logged
-  };
-  return function (dispatch) {
-    dispatch(updateSelectedDay(day));
-  };
-};
-
-var getUserDays = exports.getUserDays = function getUserDays() {
-  console.log('inside the action creator: ');
-  return function (dispatch) {
-    _axios2.default.get('/api/users/days').then(function (response) {
-      console.log('response is:', response.data);
-      dispatch(receiveDays(response.data));
-    });
-  };
-};
 
 /***/ }),
 /* 88 */
@@ -8360,7 +8373,7 @@ module.exports = function(it, tag, stat){
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(98)('keys')
-  , uid    = __webpack_require__(70);
+  , uid    = __webpack_require__(71);
 module.exports = function(key){
   return shared[key] || (shared[key] = uid(key));
 };
@@ -8835,7 +8848,7 @@ var ReactDOMComponentTree = __webpack_require__(7);
 var ReactInstrumentation = __webpack_require__(24);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(122);
-var setInnerHTML = __webpack_require__(81);
+var setInnerHTML = __webpack_require__(82);
 var setTextContent = __webpack_require__(206);
 
 function getNodeAfter(parentNode, node) {
@@ -10863,7 +10876,7 @@ exports.go = exports.replaceLocation = exports.pushLocation = exports.startListe
 
 var _LocationUtils = __webpack_require__(58);
 
-var _DOMUtils = __webpack_require__(84);
+var _DOMUtils = __webpack_require__(85);
 
 var _DOMStateStorage = __webpack_require__(220);
 
@@ -10983,7 +10996,7 @@ var _runTransitionHook = __webpack_require__(138);
 
 var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-var _Actions = __webpack_require__(83);
+var _Actions = __webpack_require__(84);
 
 var _LocationUtils = __webpack_require__(58);
 
@@ -11199,7 +11212,7 @@ var _prodInvariant = __webpack_require__(41);
 
 var ReactNoopUpdateQueue = __webpack_require__(140);
 
-var canDefineProperty = __webpack_require__(85);
+var canDefineProperty = __webpack_require__(86);
 var emptyObject = __webpack_require__(35);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(3);
@@ -11413,7 +11426,7 @@ module.exports = ReactNoopUpdateQueue;
 
 exports.__esModule = true;
 
-var _shallowEqual = __webpack_require__(71);
+var _shallowEqual = __webpack_require__(72);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -11744,6 +11757,8 @@ Object.defineProperty(exports, "__esModule", {
 var RECEIVE_DAYS = exports.RECEIVE_DAYS = 'RECEIVE_DAYS';
 var RECEIVE_DAY = exports.RECEIVE_DAY = 'RECEIVE_DAY';
 var UPDATE_DAY = exports.UPDATE_DAY = 'UPDATE_DAY';
+var RECEIVE_LOGGED_DAYS = exports.RECEIVE_LOGGED_DAYS = 'RECEIVE_LOGGED_DAYS';
+var RECEIVE_LOGGED_INFO = exports.RECEIVE_LOGGED_INFO = 'RECEIVE_LOGGED_INFO';
 
 /***/ }),
 /* 150 */
@@ -11917,7 +11932,7 @@ module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED
 /* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE            = __webpack_require__(69)
+var pIE            = __webpack_require__(70)
   , createDesc     = __webpack_require__(63)
   , toIObject      = __webpack_require__(44)
   , toPrimitive    = __webpack_require__(100)
@@ -12696,7 +12711,7 @@ var _lodash = __webpack_require__(366);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _colorManipulator = __webpack_require__(74);
+var _colorManipulator = __webpack_require__(75);
 
 var _lightBaseTheme = __webpack_require__(385);
 
@@ -15229,7 +15244,7 @@ var _prodInvariant = __webpack_require__(5);
 var DOMLazyTree = __webpack_require__(51);
 var DOMProperty = __webpack_require__(37);
 var React = __webpack_require__(59);
-var ReactBrowserEventEmitter = __webpack_require__(77);
+var ReactBrowserEventEmitter = __webpack_require__(78);
 var ReactCurrentOwner = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactDOMContainerInfo = __webpack_require__(442);
@@ -15245,7 +15260,7 @@ var ReactUpdates = __webpack_require__(27);
 var emptyObject = __webpack_require__(35);
 var instantiateReactComponent = __webpack_require__(204);
 var invariant = __webpack_require__(1);
-var setInnerHTML = __webpack_require__(81);
+var setInnerHTML = __webpack_require__(82);
 var shouldUpdateReactComponent = __webpack_require__(127);
 var warning = __webpack_require__(3);
 
@@ -16201,8 +16216,8 @@ module.exports = isTextInputElement;
 
 
 var ExecutionEnvironment = __webpack_require__(8);
-var escapeTextContentForBrowser = __webpack_require__(80);
-var setInnerHTML = __webpack_require__(81);
+var escapeTextContentForBrowser = __webpack_require__(81);
+var setInnerHTML = __webpack_require__(82);
 
 /**
  * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -18315,7 +18330,7 @@ var ReactElement = __webpack_require__(40);
 
 var checkReactTypeSpec = __webpack_require__(543);
 
-var canDefineProperty = __webpack_require__(85);
+var canDefineProperty = __webpack_require__(86);
 var getIteratorFn = __webpack_require__(228);
 var warning = __webpack_require__(3);
 
@@ -19036,7 +19051,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(134);
 
-var _reactRedux = __webpack_require__(82);
+var _reactRedux = __webpack_require__(83);
 
 var _axios = __webpack_require__(143);
 
@@ -19050,7 +19065,9 @@ var _UserDashboard = __webpack_require__(259);
 
 var _UserDashboard2 = _interopRequireDefault(_UserDashboard);
 
-var _days = __webpack_require__(87);
+var _days = __webpack_require__(69);
+
+var _body = __webpack_require__(565);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19059,16 +19076,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //   store.dispatch(getDaysByUserId(userId));
 // };
 
-var onUserDashboardEnter = function onUserDashboardEnter(nextRouterState) {
-  console.log('inside onUserDashboardEnter');
-  _store2.default.dispatch((0, _days.getUserDays)());
-  _store2.default.dispatch((0, _days.computeInitialSelectedDay)());
-};
 // import Login from './components/Login';
 // import Signup from './components/Signup';
 
 //import {BrowserRouter as Router} from 'react-router-dom';
 //import {Route, hashHistory, IndexRedirect, IndexRoute, browserHistory } from 'react-router-dom';
+var onUserDashboardEnter = function onUserDashboardEnter(nextRouterState) {
+  console.log('inside onUserDashboardEnter');
+  _store2.default.dispatch((0, _days.getUserDays)());
+  _store2.default.dispatch((0, _days.computeInitialSelectedDay)());
+  _store2.default.dispatch((0, _body.computeNumberOfLoggedDays)());
+};
 
 exports.default = function () {
   return _react2.default.createElement(
@@ -19092,7 +19110,7 @@ exports.default = function () {
 var utils = __webpack_require__(21);
 var bind = __webpack_require__(148);
 var Axios = __webpack_require__(238);
-var defaults = __webpack_require__(86);
+var defaults = __webpack_require__(87);
 
 /**
  * Create an instance of Axios
@@ -19212,7 +19230,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(86);
+var defaults = __webpack_require__(87);
 var utils = __webpack_require__(21);
 var InterceptorManager = __webpack_require__(239);
 var dispatchRequest = __webpack_require__(240);
@@ -19366,7 +19384,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(21);
 var transformData = __webpack_require__(243);
 var isCancel = __webpack_require__(146);
-var defaults = __webpack_require__(86);
+var defaults = __webpack_require__(87);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -19967,7 +19985,7 @@ exports.default = function (props) {
         'This week ',
         _react2.default.createElement('br', null),
         '  ',
-        props.totalLoggedDays,
+        props.numberOfLoggedDays,
         '/4 '
       )
     ),
@@ -19983,7 +20001,7 @@ exports.default = function (props) {
     _react2.default.createElement(
       'div',
       { className: 'actionCheck' },
-      props.logged ? _react2.default.createElement(
+      props.isLogged ? _react2.default.createElement(
         _FloatingActionButton2.default,
         { backgroundColor: _colors.greenA200, style: iconStyles },
         _react2.default.createElement(_checkCircle2.default, null)
@@ -20014,7 +20032,7 @@ var _IconButton = __webpack_require__(178);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _FontIcon = __webpack_require__(72);
+var _FontIcon = __webpack_require__(73);
 
 var _FontIcon2 = _interopRequireDefault(_FontIcon);
 
@@ -20043,7 +20061,7 @@ exports.default = function (props) {
   var styles = {
     chip1: {
       margin: 4,
-      backgroundColor: 'limegreen'
+      backgroundColor: '#0dd261'
     },
     chip2: {
       margin: 4
@@ -20195,7 +20213,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _FontIcon = __webpack_require__(72);
+var _FontIcon = __webpack_require__(73);
 
 var _FontIcon2 = _interopRequireDefault(_FontIcon);
 
@@ -20356,9 +20374,9 @@ var _Body = __webpack_require__(253);
 
 var _Body2 = _interopRequireDefault(_Body);
 
-var _reactRedux = __webpack_require__(82);
+var _reactRedux = __webpack_require__(83);
 
-var _days = __webpack_require__(87);
+var _days = __webpack_require__(69);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20371,8 +20389,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     days: state.daysState.days,
-    selectedDayName: state.daysState.selectedDay.dayName
-
+    selectedDay: state.daysState.selectedDay,
+    numberOfLoggedDays: state.bodyState.numberOfLoggedDays,
+    isLogged: state.bodyState.isLogged
   };
 };
 
@@ -20394,7 +20413,10 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
     _this.state = {
       logged: false,
-      totalLoggedDays: 0
+      totalLoggedDays: props.numberOfLoggedDays,
+      selectedDay: props.selectedDay,
+      days: props.days,
+      isLogged: props.isLogged
     };
     _this.handleClick = _this.handleClick.bind(_this);
     return _this;
@@ -20405,8 +20427,9 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
     value: function componentDidMount() {
       var _this2 = this;
 
+      console.log('componentDidMount in bodyContainer number of days is: ', this.props.numberOfLoggedDays);
       this.props.days.map(function (day) {
-        if (day.name === _this2.props.selectedDayId) {
+        if (day.name === _this2.props.selectedDay.dayName) {
           _this2.setState({
             logged: day.logged
           });
@@ -20414,17 +20437,16 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
       });
     }
   }, {
-    key: 'computeNumberOfLoggedDays',
-    value: function computeNumberOfLoggedDays() {
-      var result = 0;
-      this.props.days.map(function (day) {
-        if (day.logged) {
-          result++;
-        }
-      });
-      this.setState({
-        totalLoggedDays: result
-      });
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props !== nextProps) {
+        this.setState({
+          totalLoggedDays: nextProps.numberOfLoggedDays,
+          selectedDay: nextProps.selectedDay,
+          days: nextProps.days,
+          isLogged: nextProps.isLogged
+        });
+      }
     }
   }, {
     key: 'handleClick',
@@ -20465,13 +20487,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(82);
+var _reactRedux = __webpack_require__(83);
 
 var _Days = __webpack_require__(254);
 
 var _Days2 = _interopRequireDefault(_Days);
 
-var _days = __webpack_require__(87);
+var _days = __webpack_require__(69);
 
 var _utils = __webpack_require__(150);
 
@@ -20553,6 +20575,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       console.log('next props in componentWillReceiveProps: ', nextProps);
+      this.computeSelectedDayString();
       if (this.props !== nextProps) {
         this.setState({
           days: nextProps.days,
@@ -20585,13 +20608,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactRedux = __webpack_require__(82);
+var _reactRedux = __webpack_require__(83);
 
 var _UserDashboard = __webpack_require__(256);
 
 var _UserDashboard2 = _interopRequireDefault(_UserDashboard);
 
-var _days = __webpack_require__(87);
+var _days = __webpack_require__(69);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20713,15 +20736,18 @@ var _daysReducer = __webpack_require__(261);
 
 var _daysReducer2 = _interopRequireDefault(_daysReducer);
 
+var _bodyReducer = __webpack_require__(566);
+
+var _bodyReducer2 = _interopRequireDefault(_bodyReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Required libraries
+// Requried files
 var rootReducer = (0, _redux.combineReducers)({
   //auth: require('./auth').default,
-  daysState: _daysReducer2.default
-});
-
-// Requried files
+  daysState: _daysReducer2.default,
+  bodyState: _bodyReducer2.default
+}); // Required libraries
 exports.default = rootReducer;
 
 /***/ }),
@@ -20749,7 +20775,9 @@ var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.createStore)(_rootReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger.createLogger)({ collapsed: true })));
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose;
+
+exports.default = (0, _redux.createStore)(_rootReducer2.default, composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger.createLogger)({ collapsed: true }))));
 
 /***/ }),
 /* 264 */
@@ -23506,7 +23534,7 @@ module.exports = function(object, index, value){
 // all enumerable object keys, includes symbols
 var getKeys = __webpack_require__(49)
   , gOPS    = __webpack_require__(95)
-  , pIE     = __webpack_require__(69);
+  , pIE     = __webpack_require__(70);
 module.exports = function(it){
   var result     = getKeys(it)
     , getSymbols = gOPS.f;
@@ -23637,7 +23665,7 @@ module.exports = function(object, el){
 /* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META     = __webpack_require__(70)('meta')
+var META     = __webpack_require__(71)('meta')
   , isObject = __webpack_require__(61)
   , has      = __webpack_require__(43)
   , setDesc  = __webpack_require__(34).f
@@ -23700,7 +23728,7 @@ var meta = module.exports = {
 // 19.1.2.1 Object.assign(target, source, ...)
 var getKeys  = __webpack_require__(49)
   , gOPS     = __webpack_require__(95)
-  , pIE      = __webpack_require__(69)
+  , pIE      = __webpack_require__(70)
   , toObject = __webpack_require__(64)
   , IObject  = __webpack_require__(155)
   , $assign  = Object.assign;
@@ -24017,7 +24045,7 @@ var global         = __webpack_require__(33)
   , $fails         = __webpack_require__(47)
   , shared         = __webpack_require__(98)
   , setToStringTag = __webpack_require__(96)
-  , uid            = __webpack_require__(70)
+  , uid            = __webpack_require__(71)
   , wks            = __webpack_require__(26)
   , wksExt         = __webpack_require__(102)
   , wksDefine      = __webpack_require__(101)
@@ -24156,7 +24184,7 @@ if(!USE_NATIVE){
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f   = $defineProperty;
   __webpack_require__(158).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(69).f  = $propertyIsEnumerable;
+  __webpack_require__(70).f  = $propertyIsEnumerable;
   __webpack_require__(95).f = $getOwnPropertySymbols;
 
   if(DESCRIPTORS && !__webpack_require__(93)){
@@ -29574,7 +29602,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _EnhancedButton = __webpack_require__(73);
+var _EnhancedButton = __webpack_require__(74);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -29745,9 +29773,9 @@ var _keycode = __webpack_require__(175);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
-var _colorManipulator = __webpack_require__(74);
+var _colorManipulator = __webpack_require__(75);
 
-var _EnhancedButton = __webpack_require__(73);
+var _EnhancedButton = __webpack_require__(74);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -30119,13 +30147,13 @@ var _transitions = __webpack_require__(30);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _colorManipulator = __webpack_require__(74);
+var _colorManipulator = __webpack_require__(75);
 
-var _EnhancedButton = __webpack_require__(73);
+var _EnhancedButton = __webpack_require__(74);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-var _FontIcon = __webpack_require__(72);
+var _FontIcon = __webpack_require__(73);
 
 var _FontIcon2 = _interopRequireDefault(_FontIcon);
 
@@ -30687,11 +30715,11 @@ var _propTypes3 = __webpack_require__(108);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
-var _EnhancedButton = __webpack_require__(73);
+var _EnhancedButton = __webpack_require__(74);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-var _FontIcon = __webpack_require__(72);
+var _FontIcon = __webpack_require__(73);
 
 var _FontIcon2 = _interopRequireDefault(_FontIcon);
 
@@ -32806,7 +32834,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _colors = __webpack_require__(65);
 
-var _colorManipulator = __webpack_require__(74);
+var _colorManipulator = __webpack_require__(75);
 
 var _spacing = __webpack_require__(386);
 
@@ -38176,7 +38204,7 @@ module.exports = DefaultEventPluginOrder;
 
 var EventPropagators = __webpack_require__(53);
 var ReactDOMComponentTree = __webpack_require__(7);
-var SyntheticMouseEvent = __webpack_require__(78);
+var SyntheticMouseEvent = __webpack_require__(79);
 
 var eventTypes = {
   mouseEnter: {
@@ -38930,7 +38958,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 var emptyObject = __webpack_require__(35);
 var invariant = __webpack_require__(1);
-var shallowEqual = __webpack_require__(71);
+var shallowEqual = __webpack_require__(72);
 var shouldUpdateReactComponent = __webpack_require__(127);
 var warning = __webpack_require__(3);
 
@@ -39949,8 +39977,8 @@ var DOMNamespaces = __webpack_require__(115);
 var DOMProperty = __webpack_require__(37);
 var DOMPropertyOperations = __webpack_require__(190);
 var EventPluginHub = __webpack_require__(52);
-var EventPluginRegistry = __webpack_require__(75);
-var ReactBrowserEventEmitter = __webpack_require__(77);
+var EventPluginRegistry = __webpack_require__(76);
+var ReactBrowserEventEmitter = __webpack_require__(78);
 var ReactDOMComponentFlags = __webpack_require__(191);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactDOMInput = __webpack_require__(446);
@@ -39962,10 +39990,10 @@ var ReactMultiChild = __webpack_require__(465);
 var ReactServerRenderingTransaction = __webpack_require__(470);
 
 var emptyFunction = __webpack_require__(10);
-var escapeTextContentForBrowser = __webpack_require__(80);
+var escapeTextContentForBrowser = __webpack_require__(81);
 var invariant = __webpack_require__(1);
 var isEventSupported = __webpack_require__(126);
-var shallowEqual = __webpack_require__(71);
+var shallowEqual = __webpack_require__(72);
 var validateDOMNesting = __webpack_require__(128);
 var warning = __webpack_require__(3);
 
@@ -41903,7 +41931,7 @@ var DOMChildrenOperations = __webpack_require__(114);
 var DOMLazyTree = __webpack_require__(51);
 var ReactDOMComponentTree = __webpack_require__(7);
 
-var escapeTextContentForBrowser = __webpack_require__(80);
+var escapeTextContentForBrowser = __webpack_require__(81);
 var invariant = __webpack_require__(1);
 var validateDOMNesting = __webpack_require__(128);
 
@@ -42375,7 +42403,7 @@ module.exports = {
 
 
 var DOMProperty = __webpack_require__(37);
-var EventPluginRegistry = __webpack_require__(75);
+var EventPluginRegistry = __webpack_require__(76);
 var ReactComponentTreeHook = __webpack_require__(19);
 
 var warning = __webpack_require__(3);
@@ -42860,7 +42888,7 @@ module.exports = ReactDebugTool;
 var _assign = __webpack_require__(6);
 
 var ReactUpdates = __webpack_require__(27);
-var Transaction = __webpack_require__(79);
+var Transaction = __webpack_require__(80);
 
 var emptyFunction = __webpack_require__(10);
 
@@ -43285,10 +43313,10 @@ module.exports = ReactHostOperationHistoryHook;
 
 var DOMProperty = __webpack_require__(37);
 var EventPluginHub = __webpack_require__(52);
-var EventPluginUtils = __webpack_require__(76);
+var EventPluginUtils = __webpack_require__(77);
 var ReactComponentEnvironment = __webpack_require__(118);
 var ReactEmptyComponent = __webpack_require__(193);
-var ReactBrowserEventEmitter = __webpack_require__(77);
+var ReactBrowserEventEmitter = __webpack_require__(78);
 var ReactHostComponent = __webpack_require__(195);
 var ReactUpdates = __webpack_require__(27);
 
@@ -44011,10 +44039,10 @@ var _assign = __webpack_require__(6);
 
 var CallbackQueue = __webpack_require__(189);
 var PooledClass = __webpack_require__(45);
-var ReactBrowserEventEmitter = __webpack_require__(77);
+var ReactBrowserEventEmitter = __webpack_require__(78);
 var ReactInputSelection = __webpack_require__(196);
 var ReactInstrumentation = __webpack_require__(24);
-var Transaction = __webpack_require__(79);
+var Transaction = __webpack_require__(80);
 var ReactUpdateQueue = __webpack_require__(120);
 
 /**
@@ -44288,7 +44316,7 @@ module.exports = ReactRef;
 var _assign = __webpack_require__(6);
 
 var PooledClass = __webpack_require__(45);
-var Transaction = __webpack_require__(79);
+var Transaction = __webpack_require__(80);
 var ReactInstrumentation = __webpack_require__(24);
 var ReactServerUpdateQueue = __webpack_require__(471);
 
@@ -44860,7 +44888,7 @@ var SyntheticEvent = __webpack_require__(31);
 
 var getActiveElement = __webpack_require__(168);
 var isTextInputElement = __webpack_require__(205);
-var shallowEqual = __webpack_require__(71);
+var shallowEqual = __webpack_require__(72);
 
 var skipSelectionChangeEvent = ExecutionEnvironment.canUseDOM && 'documentMode' in document && document.documentMode <= 11;
 
@@ -45059,7 +45087,7 @@ var SyntheticClipboardEvent = __webpack_require__(477);
 var SyntheticEvent = __webpack_require__(31);
 var SyntheticFocusEvent = __webpack_require__(480);
 var SyntheticKeyboardEvent = __webpack_require__(482);
-var SyntheticMouseEvent = __webpack_require__(78);
+var SyntheticMouseEvent = __webpack_require__(79);
 var SyntheticDragEvent = __webpack_require__(479);
 var SyntheticTouchEvent = __webpack_require__(483);
 var SyntheticTransitionEvent = __webpack_require__(484);
@@ -45410,7 +45438,7 @@ module.exports = SyntheticCompositionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(78);
+var SyntheticMouseEvent = __webpack_require__(79);
 
 /**
  * @interface DragEvent
@@ -45717,7 +45745,7 @@ module.exports = SyntheticTransitionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(78);
+var SyntheticMouseEvent = __webpack_require__(79);
 
 /**
  * @interface WheelEvent
@@ -46489,7 +46517,7 @@ module.exports = getVendorPrefixedEventName;
 
 
 
-var escapeTextContentForBrowser = __webpack_require__(80);
+var escapeTextContentForBrowser = __webpack_require__(81);
 
 /**
  * Escapes attribute value to prevent scripting attacks.
@@ -48015,7 +48043,7 @@ function isActive(_ref, indexOnly, currentLocation, routes, params) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(83);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -48502,7 +48530,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _LocationUtils = __webpack_require__(58);
 
-var _DOMUtils = __webpack_require__(84);
+var _DOMUtils = __webpack_require__(85);
 
 var _DOMStateStorage = __webpack_require__(220);
 
@@ -48682,7 +48710,7 @@ var _RefreshProtocol = __webpack_require__(524);
 
 var RefreshProtocol = _interopRequireWildcard(_RefreshProtocol);
 
-var _DOMUtils = __webpack_require__(84);
+var _DOMUtils = __webpack_require__(85);
 
 var _createHistory = __webpack_require__(137);
 
@@ -48778,7 +48806,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _ExecutionEnvironment = __webpack_require__(136);
 
-var _DOMUtils = __webpack_require__(84);
+var _DOMUtils = __webpack_require__(85);
 
 var _HashProtocol = __webpack_require__(523);
 
@@ -48938,7 +48966,7 @@ var _createHistory = __webpack_require__(137);
 
 var _createHistory2 = _interopRequireDefault(_createHistory);
 
-var _Actions = __webpack_require__(83);
+var _Actions = __webpack_require__(84);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49085,7 +49113,7 @@ exports.default = createMemoryHistory;
 
 
 var EventConstants = __webpack_require__(434);
-var EventPluginUtils = __webpack_require__(76);
+var EventPluginUtils = __webpack_require__(77);
 var EventPropagators = __webpack_require__(53);
 var SyntheticUIEvent = __webpack_require__(55);
 var TouchEventUtils = __webpack_require__(529);
@@ -51932,6 +51960,121 @@ module.exports = function() {
 	throw new Error("define cannot be used indirect");
 };
 
+
+/***/ }),
+/* 565 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isSelectedDayLogged = exports.computeNumberOfLoggedDays = exports.updateLoggedHabit = exports.getDayLoggedStatus = exports.receiveNumberOfLoggedDays = undefined;
+
+var _constants = __webpack_require__(149);
+
+var _axios = __webpack_require__(143);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _utils = __webpack_require__(150);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//======Action Creators========//
+
+//======Files, Libraries========//
+var receiveNumberOfLoggedDays = exports.receiveNumberOfLoggedDays = function receiveNumberOfLoggedDays(numberOfLoggedDays) {
+  return {
+    type: _constants.RECEIVE_LOGGED_DAYS,
+    numberOfLoggedDays: numberOfLoggedDays
+  };
+}; //======Actions=======//
+var getDayLoggedStatus = exports.getDayLoggedStatus = function getDayLoggedStatus(isLogged) {
+  return {
+    type: _constants.RECEIVE_LOGGED_INFO,
+    isLogged: isLogged
+  };
+};
+
+//========Dispatchers===========//
+
+var updateLoggedHabit = exports.updateLoggedHabit = function updateLoggedHabit(dayName, data) {
+  return function (dispatch) {
+    return _axios2.default.put('/api/users/' + dayName, data).then(function (res) {
+      console.log("updating logged info about the habit: ", res.data);
+    });
+  };
+};
+
+var computeNumberOfLoggedDays = exports.computeNumberOfLoggedDays = function computeNumberOfLoggedDays() {
+  var result = 0;
+  var isSelectedDayLogged = false;
+  var todayObject = new Date();
+  return function (dispatch) {
+    _axios2.default.get('/api/users/days').then(function (response) {
+      console.log('response in computeNumberOfLoggedDays: ', response.data);
+      response.data.map(function (day) {
+        if (day.logged) {
+          result++;
+        }
+        if (day.dayName === todayObject.toDateString().slice(0, 2)) {
+          isSelectedDayLogged = day.logged;
+        }
+      });
+      console.log('total days is: ', result);
+      dispatch(receiveNumberOfLoggedDays(result));
+      dispatch(getDayLoggedStatus(isSelectedDayLogged));
+    });
+  };
+};
+
+var isSelectedDayLogged = exports.isSelectedDayLogged = function isSelectedDayLogged() {};
+
+/***/ }),
+/* 566 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+
+  var newState = Object.assign({}, state);
+
+  switch (action.type) {
+
+    case _constants.RECEIVE_LOGGED_DAYS:
+      newState.numberOfLoggedDays = action.numberOfLoggedDays;
+      break;
+
+    case _constants.RECEIVE_LOGGED_INFO:
+      newState.isLogged = action.isLogged;
+      break;
+
+    default:
+      return state;
+
+  }
+
+  return newState;
+};
+
+var _constants = __webpack_require__(149);
+
+var initialState = {
+  numberOfLoggedDays: 0,
+  isLogged: false
+};
 
 /***/ })
 /******/ ]);

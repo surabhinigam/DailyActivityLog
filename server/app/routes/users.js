@@ -18,11 +18,11 @@ var days = [{
 },{
 dateString: '5/17/2017',
   dayName: 'We' ,
-  logged: true,
+  logged: false,
 },{
 dateString: '5/18/2017',
   dayName: 'Th' ,
-  logged: false,
+  logged: true,
 },{
 dateString: '5/19/2017',
   dayName: 'Fr' ,

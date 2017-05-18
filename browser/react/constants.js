@@ -2,4 +2,6 @@
 export const RECEIVE_DAYS = 'RECEIVE_DAYS';
 export const RECEIVE_DAY = 'RECEIVE_DAY';
 export const UPDATE_DAY = 'UPDATE_DAY';
+export const RECEIVE_LOGGED_DAYS = 'RECEIVE_LOGGED_DAYS';
+export const RECEIVE_LOGGED_INFO = 'RECEIVE_LOGGED_INFO';
 

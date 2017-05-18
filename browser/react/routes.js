@@ -13,6 +13,7 @@ import UserDashboard from './containers/UserDashboard';
 // import Signup from './components/Signup';
 
 import { getUserDays, computeInitialSelectedDay } from './action-creators/days';
+import {computeNumberOfLoggedDays} from './action-creators/body';
 
 // const onDashboardEnter = () => {
 //   const userId = nextRouterState.params.userId;
@@ -23,6 +24,7 @@ const onUserDashboardEnter = function (nextRouterState) {
   console.log('inside onUserDashboardEnter');
   store.dispatch(getUserDays());
   store.dispatch(computeInitialSelectedDay());
+  store.dispatch(computeNumberOfLoggedDays());
 };
 
 export default () => {

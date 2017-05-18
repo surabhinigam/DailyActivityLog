@@ -35,7 +35,7 @@ body {
   padding: 0;
   list-style-type: none;
   text-align: center;
-  background-color: green;
+  background-color: #0dd261;
   position: relative;
 }
 
@@ -63,6 +63,36 @@ body {
   align-items: center;
   justify-content: space-between;
 
+}
+
+.checkCircle {
+  content: " "; // the circle itself is empty
+  display: block;
+  border: solid 0.8em #660a5e; // create a colored area...
+  border-radius: .8em; // ... and turn it into a circle
+  height: 0;
+  width: 0;
+  position: absolute; // the circle is then put into place
+  left: 0.5em;
+  top: 40%; 
+  margin-top: -0.5em;
+}
+
+.checkMarkCircle {
+  content: " ";
+  display: block;
+  width: 0.3em; // the short bar of the mark is half as long as the long bar
+  height: 0.6em;
+  border: solid white;
+  border-width: 0 0.2em 0.2em 0; // creates the inverted "L" shape
+  position: absolute;
+  left: 1em;
+  top: 40%;
+  margin-top: -0.2em;
+  -webkit-transform: rotate(45deg); // tilts the shape
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .greyText {

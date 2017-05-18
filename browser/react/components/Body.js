@@ -37,7 +37,7 @@ export default function (props) {
     <div className="check">
     <div className="status">
     <ActionEvent style={iconStyles} color={orange600}/>
-    <p className="greyText">This week <br />  {props.totalLoggedDays}/4 </p>
+    <p className="greyText">This week <br />  {props.numberOfLoggedDays}/4 </p>
     </div>
 
     <div>
@@ -45,7 +45,7 @@ export default function (props) {
     </div>
     
     <div className="actionCheck">
-    {(props.logged) ? <FloatingActionButton backgroundColor={greenA200} style={iconStyles}>
+    {(props.isLogged) ? <FloatingActionButton backgroundColor={greenA200} style={iconStyles}>
       <ActionCheck />
     </FloatingActionButton> :
          <FloatingActionButton disabled={true} style={styles.large}>

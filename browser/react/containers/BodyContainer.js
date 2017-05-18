@@ -6,8 +6,9 @@ import { updateLoggedHabit} from '../action-creators/days';
 const mapStateToProps = (state) => {
   return {
     days: state.daysState.days,
-    selectedDayName: state.daysState.selectedDay.dayName
-
+    selectedDay: state.daysState.selectedDay,
+    numberOfLoggedDays: state.bodyState.numberOfLoggedDays,
+    isLogged: state.bodyState.isLogged,
   };
   
 };
@@ -29,32 +30,34 @@ export default connect(
     super(props);
     this.state = {
       logged: false,
-      totalLoggedDays: 0,
+      totalLoggedDays: props.numberOfLoggedDays,
+      selectedDay: props.selectedDay,
+      days: props.days,
+      isLogged: props.isLogged,
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount(){
+   console.log('componentDidMount in bodyContainer number of days is: ', this.props.numberOfLoggedDays);
     this.props.days.map( day => {
-      if(day.name === this.props.selectedDayId){
+      if(day.name === this.props.selectedDay.dayName){
         this.setState({
           logged: day.logged
         })
       }
-    })
-
+    });
   }
 
-  computeNumberOfLoggedDays (){
-    var result = 0;
-    this.props.days.map(day => {
-      if(day.logged){
-        result++;
-      }
-    });
-    this.setState({
-      totalLoggedDays: result,
-    })
+  componentWillReceiveProps(nextProps){
+    if (this.props !== nextProps) {
+      this.setState({
+        totalLoggedDays: nextProps.numberOfLoggedDays,
+        selectedDay: nextProps.selectedDay,
+        days: nextProps.days,
+        isLogged: nextProps.isLogged,
+      });
+    }
   }
 
   handleClick (evt) {
