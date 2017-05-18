@@ -4,31 +4,31 @@ const router = require('express').Router();
 // const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 
 var days = [{
-  dateString: '05/14/2017',
+  dateString: '5/14/2017',
   dayName: 'Su' ,
-  logged: true,
-},{
-  dateString: '05/14/2017',
-  dayName: 'Mo' ,
   logged: false,
 },{
-  dateString: '05/14/2017',
+  dateString: '5/15/2017',
+  dayName: 'Mo' ,
+  logged: true,
+},{
+  dateString: '5/16/2017',
   dayName: 'Tu' ,
   logged: true,
 },{
-dateString: '05/14/2017',
+dateString: '5/17/2017',
   dayName: 'We' ,
   logged: true,
 },{
-dateString: '05/14/2017',
+dateString: '5/18/2017',
   dayName: 'Th' ,
   logged: false,
 },{
-dateString: '05/14/2017',
+dateString: '5/19/2017',
   dayName: 'Fr' ,
   logged: false,
 },{
-dateString: '05/14/2017',
+dateString: '5/20/2017',
   dayName: 'Sa' ,
   logged: false,
 }];

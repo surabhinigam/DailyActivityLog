@@ -7,35 +7,6 @@ import WeekdayPicker from "react-weekday-picker";
 import CalendarComponent from 'react-day-calendar';
 
 export default function (props) {
-
-  //const days = props.days;
-  // const dayChips = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  // const days = [{
-  //   name: 'Su',
-  //   logged: true,
-  // },
-  // {
-  //   name: 'Mo',
-  //   logged: true,
-  // },
-  // {
-  //   name: 'Tu',
-  //   logged: false,
-  // },
-  // {
-  //   name: 'We',
-  //   logged: false,
-  // },
-  // {
-  //   name: 'Th',
-  //   logged: true,
-  // },
-  // {
-  //   name: 'Sa',
-  //   logged: false
-  // }];
-  // const selectedDayId = props.selectedDayId;
-  // const idToDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const styles = {
   chip1: {
     margin: 4,
@@ -49,11 +20,12 @@ export default function (props) {
     flexWrap: 'wrap',
   },
 };
-console.log('props is: ', props);
-console.log('props.days is: ', days);
+// console.log('props is: ', props);
+// console.log('props.days is: ', props.days);
 
-function handleTouchTap() {
-  props.updateSelectedDay();
+function handleTouchTap(dayName) {
+  console.log('event is: ', dayName);
+  props.handleChange(dayName);
 }
 
 var curr = new Date();
@@ -68,8 +40,10 @@ var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+6));
 
       <div style={styles.wrapper}>
       {props.days.map( day => (
-        (day.logged) ? <Chip style={styles.chip1} onTouchTap={handleTouchTap}> {day.dayName} </Chip> :
-         <Chip style={styles.chip2} onTouchTap={handleTouchTap}> {day.dayName} </Chip>
+        <div key={day.dayName}>
+        {(day.logged) ? <Chip style={styles.chip1} onTouchTap={()=> handleTouchTap(day.dayName)}> {day.dayName} </Chip> :
+         <Chip style={styles.chip2} onTouchTap={()=> handleTouchTap(day.dayName)}> {day.dayName} </Chip>}
+         </div>
       ))
     }
       

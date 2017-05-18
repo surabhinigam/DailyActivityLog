@@ -15,11 +15,13 @@ export default function (state = initialState, action) {
   switch (action.type) {
 
     case RECEIVE_DAYS:
+    console.log('inside reducer receive-days', action);
       newState.days = action.days;
+      console.log('newstate days is: ', newState.days);
       break;
 
     case UPDATE_DAY:
-      newState.selectedDay = action.selectedDay;
+      newState.selectedDay = action.day;
       break;
 
     default:

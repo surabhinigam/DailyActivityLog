@@ -7,14 +7,14 @@ import {idToDay, idToMonth,  getKeyByValue} from '../utils';
 const mapStateToProps = state => {
   return {
     days: state.daysState.days,
-    //selectedDay: state.dayState.selectedDay
+    selectedDay: state.daysState.selectedDay
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateSelectedDay: dayName => {
-      dispatch(updateSelectedDay(dayName));
+    updateSelectedDay: day => {
+      dispatch(updateSelectedDay(day));
     },
   };
 };
@@ -41,22 +41,13 @@ export default connect(
   }
 
   computeSelectedDayString () {
-    var splitDate = this.props.selectedDay.dateString.split('-'); //date is saved as string mm/dd/yyyy in backend
+    var splitDate = this.props.selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
+    console.log('splitDate is ', splitDate);
     var resultingString = '';
-    // const idToDay = { 
-    //     Su: 'Sunday', 
-    //     Mo: 'Monday', 
-    //     Tu: 'Tuesday', 
-    //     We: 'Wednesday', 
-    //     Th: 'Thursday', 
-    //     Fr: 'Friday', 
-    //     Sa: 'Saturday'};
-    //const idToDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    //const idToMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     resultingString = idToDay[this.props.selectedDay.dayName];
     resultingString += ', ';
-    resultingString += idToMonth[splitDate[0]];
-    resultingString += idToDay[splitDate[1]];
+    resultingString += idToMonth[splitDate[0]-1];
+    resultingString += splitDate[1];
     this.setState({
       selectedDayString: resultingString
     })
@@ -64,23 +55,25 @@ export default connect(
 
   handleDayChange (dayName) {
     var newDayObject = {};
-    props.days.map( day => {
-      if(day[dayName] === dayName){
+    this.props.days.map( day => {
+      if(day.dayName === dayName){
         newDayObject = Object.assign({}, day);
       }
     });
+    console.log('inside handleDayChange and the dayObject is: ', newDayObject);
     this.props.updateSelectedDay(newDayObject);
-    //this.computeSelectedDayString ();
+    this.computeSelectedDayString ();
   }
 
   componentWillReceiveProps(nextProps){
+    console.log('next props in componentWillReceiveProps: ', nextProps);
     if (this.props !== nextProps) {
       this.setState({
-        days: nextProps.daysState.days,
-        selectedDay: nextProps.dayState.selectedDay
+        days: nextProps.days,
+        selectedDay: nextProps.selectedDay
 
       });
-    this.computeSelectedDayString ();
+    //this.computeSelectedDayString ();
   }
 }
 

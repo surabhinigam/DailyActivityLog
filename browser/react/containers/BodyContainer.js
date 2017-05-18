@@ -6,7 +6,7 @@ import { updateLoggedHabit} from '../action-creators/days';
 const mapStateToProps = (state) => {
   return {
     days: state.daysState.days,
-    selectedDayName: state.daysState.selectedDay.name
+    selectedDayName: state.daysState.selectedDay.dayName
 
   };
   
@@ -47,7 +47,7 @@ export default connect(
 
   computeNumberOfLoggedDays (){
     var result = 0;
-    days.map(day => {
+    this.props.days.map(day => {
       if(day.logged){
         result++;
       }

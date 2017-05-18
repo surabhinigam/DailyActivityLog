@@ -13,15 +13,10 @@ export const receiveDays = days => ({
     days
 });
 
-// export const receiveDay = day => ({
-//     type: RECEIVE_DAY,
-//     day
-// });
-
-export const updateSelectedDay = day => {
+export const updateSelectedDay = day => ({
   type: UPDATE_DAY,
   day
-}
+});
 
 //========Dispatchers===========//
 
@@ -49,9 +44,9 @@ export const updateLoggedHabit = (dayName, data) => {
 
 export const computeInitialSelectedDay = () => {
   var todayObject = new Date();
-  var todayString = today.toDateString();
+  var todayString = todayObject.toDateString();
   var dayName = todayString.slice(0,2);
-  var dateString = todayObject.getMonth().toString + '/' + todayObject.getDate().toString() + '/' + todayObject.getYear().toString();//mm/dd/yyyy
+  var dateString = todayObject.getMonth()+1 + '/' + todayObject.getDate().toString() + '/' + todayObject.getYear().toString();//mm/dd/yyyy
   var logged = false;
   var day = {
     dayName,
