@@ -22,7 +22,7 @@ dateString: '5/17/2017',
 },{
 dateString: '5/18/2017',
   dayName: 'Th' ,
-  logged: true,
+  logged: false,
 },{
 dateString: '5/19/2017',
   dayName: 'Fr' ,

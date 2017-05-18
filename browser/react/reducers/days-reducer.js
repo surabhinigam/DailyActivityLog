@@ -1,11 +1,13 @@
 import {
   RECEIVE_DAYS,
-  UPDATE_DAY
+  UPDATE_DAY,
+  UPDATE_SELECTED_DAY_STRING
 } from '../constants';
 
 const initialState = {
   days: [],
-  selectedDay: {}
+  selectedDay: {},
+  selectedDayString: ''
 };
 
 export default function (state = initialState, action) {
@@ -23,6 +25,9 @@ export default function (state = initialState, action) {
     case UPDATE_DAY:
       newState.selectedDay = action.day;
       break;
+
+    case UPDATE_SELECTED_DAY_STRING:
+      newState.selectedDayString = action.selectedDayString;
 
     default:
       return state;

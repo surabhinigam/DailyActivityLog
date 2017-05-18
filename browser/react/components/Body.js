@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import ActionEvent from 'material-ui/svg-icons/action/event';
 import {blue500, red500, greenA200, orange600} from 'material-ui/styles/colors';
+import FontAwesome from'react-fontawesome';
 
 
 
@@ -31,6 +32,14 @@ export default function (props) {
     width: 60,
     height: 60,
   },
+  successCheck: {
+    color: '#0dd261',
+    fontSize: '18em',
+  },
+  notLoggedCheck:{
+    fontSize: '18em',
+    color: 'grey',
+  }
 	}
 
   return (
@@ -42,15 +51,11 @@ export default function (props) {
 
     <div>
     <p> Did you meditate today? </p>
-    </div>
+    </div>  
     
     <div className="actionCheck">
-    {(props.isLogged) ? <FloatingActionButton backgroundColor={greenA200} style={iconStyles}>
-      <ActionCheck />
-    </FloatingActionButton> :
-         <FloatingActionButton disabled={true} style={styles.large}>
-      <ActionCheck />
-    </FloatingActionButton>}
+    {(props.isLogged) ? <i className="fa fa-check-circle fa-5x" style={styles.successCheck} aria-hidden="true"></i> :
+         <i className="fa fa-check-circle-o fa-5x" style={styles.notLoggedCheck} aria-hidden="true"></i>}
     </div>
      
     </div>

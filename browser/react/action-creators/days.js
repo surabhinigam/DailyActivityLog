@@ -1,5 +1,5 @@
 //======Actions=======//
-import { RECEIVE_DAYS, RECEIVE_DAY, UPDATE_DAY } from '../constants';
+import { RECEIVE_DAYS, UPDATE_DAY, UPDATE_SELECTED_DAY_STRING } from '../constants';
 
 
 //======Files, Libraries========//
@@ -16,6 +16,11 @@ export const receiveDays = days => ({
 export const updateSelectedDay = day => ({
   type: UPDATE_DAY,
   day
+});
+
+export const updateSelectedDayString = selectedDayString => ({
+  type: UPDATE_SELECTED_DAY_STRING,
+  selectedDayString
 });
 
 //========Dispatchers===========//
@@ -57,6 +62,19 @@ export const computeInitialSelectedDay = () => {
     dispatch(updateSelectedDay(day));
   };
 }
+
+export const computeSelectedDayString = (selectedDay) => {
+    var splitDate = selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
+    console.log('splitDate is ', splitDate);
+    var resultingString = '';
+    resultingString = idToDay[selectedDay.dayName];
+    resultingString += ', ';
+    resultingString += idToMonth[splitDate[0]-1];
+    resultingString += splitDate[1];
+    return dispatch => {
+      dispatch(updateSelectedDayString(resultingString));
+    };
+  }
 
 // export const computeSelectedDayString () {
 //     var splitDate = this.props.selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
