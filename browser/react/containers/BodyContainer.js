@@ -9,8 +9,7 @@ const mapStateToProps = (state) => {
     selectedDay: state.daysState.selectedDay,
     numberOfLoggedDays: state.bodyState.numberOfLoggedDays,
     isLogged: state.bodyState.isLogged,
-  };
-  
+  };  
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -34,12 +33,15 @@ export default connect(
       selectedDay: props.selectedDay,
       days: props.days,
       isLogged: props.isLogged,
+      loggedMessage: 'Great!',
+      notLoggedMessage: 'Not Logged!',
+      notLoggedTodayMessage: 'Did you meditate today?'
+
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount(){
-   console.log('componentDidMount in bodyContainer number of days is: ', this.props.numberOfLoggedDays);
     this.props.days.map( day => {
       if(day.name === this.props.selectedDay.dayName){
         this.setState({
@@ -50,12 +52,14 @@ export default connect(
   }
 
   componentWillReceiveProps(nextProps){
+    console.log('inside componentWillReceiveProps in bodycontainer!!!!!!!');
+    console.log('next props in body container are: ', nextProps);
     if (this.props !== nextProps) {
       this.setState({
         totalLoggedDays: nextProps.numberOfLoggedDays,
         selectedDay: nextProps.selectedDay,
         days: nextProps.days,
-        isLogged: nextProps.isLogged,
+        isLogged: nextProps.selectedDay.logged,
       });
     }
   }

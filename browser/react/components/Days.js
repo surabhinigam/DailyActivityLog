@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import Chip from 'material-ui/Chip';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/text-format';
-import WeekdayPicker from "react-weekday-picker";
 import CalendarComponent from 'react-day-calendar';
 import FontAwesome from'react-fontawesome';
 
@@ -42,6 +41,14 @@ function handleTouchTap(dayName) {
   props.handleChange(dayName);
 }
 
+function goLeft(){
+  alert('clicked left caret');
+}
+
+function goRight(){
+alert('clicked right caret');
+}
+
 var curr = new Date();
 var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay()));
 var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+6));
@@ -49,9 +56,9 @@ var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+6));
   return (
     <div className = "well well-lg days">
     <div style={styles.wrapper2}>
-      <i className="fa fa-angle-left" aria-hidden="true"></i>
+      <i className="fa fa-angle-left" onClick={goLeft} aria-hidden="true"></i>
       <span className="currentDay">{props.selectedDayString}</span>
-      <i className="fa fa-angle-right" aria-hidden="true"></i>
+      <i className="fa fa-angle-right" onClick={goRight} aria-hidden="true"></i>
     </div>
 
       <div style={styles.wrapper}>

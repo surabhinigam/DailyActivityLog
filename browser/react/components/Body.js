@@ -21,7 +21,6 @@ export default function (props) {
     padding: 30,
     
   },
-
   large2 : {
   	width: 120,
     height: 120,
@@ -50,11 +49,11 @@ export default function (props) {
     </div>
 
     <div>
-    <p> Did you meditate today? </p>
+    {(props.selectedDay.logged) ? <p>Great!</p> : <p>Did you meditate today?</p>}
     </div>  
     
     <div className="actionCheck">
-    {(props.isLogged) ? <i className="fa fa-check-circle fa-5x" style={styles.successCheck} aria-hidden="true"></i> :
+    {(props.selectedDay.logged) ? <i className="fa fa-check-circle fa-5x" style={styles.successCheck} aria-hidden="true"></i> :
          <i className="fa fa-check-circle-o fa-5x" style={styles.notLoggedCheck} aria-hidden="true"></i>}
     </div>
      

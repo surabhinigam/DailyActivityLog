@@ -7,7 +7,8 @@ import {idToDay, idToMonth,  getKeyByValue} from '../utils';
 const mapStateToProps = state => {
   return {
     days: state.daysState.days,
-    selectedDay: state.daysState.selectedDay
+    selectedDay: state.daysState.selectedDay,
+    //selectedDayString: state.daysState.selectedDayString
   };
 };
 
@@ -40,16 +41,17 @@ export default connect(
   }
 
   componentDidMount(){
-    this.computeInitialSelectedDayString ();
+    this.computeInitialSelectedDayString (this.state.selectedDay);
   }
 
-  computeInitialSelectedDayString () {
-    var splitDate = this.props.selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
+  computeInitialSelectedDayString (selectedDay) {
+    var splitDate = selectedDay.dateString.split('/'); //date is saved as string mm/dd/yyyy in backend
     console.log('splitDate is ', splitDate);
     var resultingString = '';
     resultingString = idToDay[this.props.selectedDay.dayName];
     resultingString += ', ';
     resultingString += idToMonth[splitDate[0]-1];
+    resultingString += ' ';
     resultingString += splitDate[1];
     this.setState({
       selectedDayString: resultingString
@@ -64,26 +66,24 @@ export default connect(
       }
     });
     console.log('inside handleDayChange and the dayObject is: ', newDayObject);
+    this.computeInitialSelectedDayString(newDayObject);
     this.props.updateSelectedDay(newDayObject);
-    this.props.computeSelectedDayString (newDayObject);
+    
   }
 
-//   componentWillReceiveProps(nextProps){
-//     console.log('next props in componentWillReceiveProps: ', nextProps);
-//     if (this.props !== nextProps) {
-//       this.setState({
-//         days: nextProps.days,
-//         selectedDay: nextProps.selectedDay
-
-//       });
-//       //this.props.updateSelectedDay(this.state.selectedDay);
-//     //this.props.computeSelectedDayString (this.state.selectedDay);
-//   }
-// }
+  componentWillReceiveProps(nextProps){
+    console.log('next props in componentWillReceiveProps: ', nextProps);
+    if (this.props !== nextProps) {
+      this.setState({
+        days: nextProps.days,
+        selectedDay: nextProps.selectedDay,
+      });
+  }
+}
 
 // componentDidUpdate(prevProps, prevState){
 //   //this.props.updateSelectedDay(prevProps.selectedDay);
-//   this.props.computeSelectedDayString (prevProps.selectedDay);
+//   this.computeInitialSelectedDayString ();
 // }
 
   render () {
